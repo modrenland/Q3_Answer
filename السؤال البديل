@@ -1,0 +1,294 @@
+public class NodeQ4 {
+    int ID;
+    String name;
+    String Joptitle;
+    String Department;
+    double Salery;
+    
+    NodeQ4 next;
+}
+public class Q4 {
+    private NodeQ4 list;
+    private NodeQ4 location;
+    private NodeQ4 predloc;
+   
+    void CreateList(){
+ //        function to create new list 
+
+        list = null;
+    }
+    
+    void DestroyList(){
+//        funciton to destroy all the list
+
+        list = null;
+    }
+    
+    boolean Emptylist(){
+//        function to check if the list is empty
+        if(list==null) 
+            return true;
+        else
+            return false;
+    }
+
+    void FindElement(int key) {
+//        function to search for an element using a given key
+        location = list;
+        predloc = null;
+        while(location != null){
+            if (location.ID == key) break;
+            else
+                if(location.ID > key) location = null;
+                else {
+                    predloc = location;
+                    location=location.next;
+                }
+        }
+    }
+    
+    void InsertElement(int key, String na, String jop, String Dep,double sal ){  
+//      function to insert new node to the list
+
+        NodeQ4 ptr;
+        FindElement(key);
+        if(location != null) 
+            System.out.println("This Element Is Found");
+        else{
+            ptr = new NodeQ4();
+            ptr.ID = key;
+            ptr.name = na;
+            ptr.Joptitle = jop;
+            ptr.Department=Dep;
+            ptr.Salery=sal;
+            System.out.println("Added Successfully!");
+            if (predloc == null){
+                ptr.next = list;
+                list = ptr;
+            }
+            else{
+                ptr.next = predloc.next;
+                predloc.next = ptr;
+            }
+        }
+    }
+    
+    
+    void PrintList(){
+//      function to print all the list
+
+        NodeQ4 ptr = list;
+        while(ptr != null){
+            System.out.println(ptr.ID);
+            ptr = ptr.next;
+        }
+    }
+    
+    void DeleteElement(int key){
+   //      function to delete an element from the list
+
+        FindElement(key);
+        if(location == null)
+            System.out.println("This Element Is Not Found");
+        else {
+            if(predloc == null)
+                list=location.next;
+            else
+                predloc.next = location.next;
+        }
+    }
+    
+  
+    
+    void ModifyElement(int key, String na){
+  //        function to modify a given element to the list
+
+        FindElement(key);
+        if(location == null)
+            System.out.println("This Element Is Not Found'");
+        else{
+            //location.name = na;
+            System.out.println("the Edited Successfully!");
+        }   
+
+    }
+     
+    
+     void PrintList1(){
+//      function to print all the list
+          
+        
+        NodeQ4 ptr = list;
+        while(ptr != null){
+            System.out.println("the Employee Number==>"+ptr.ID);
+            System.out.println("the Employee name==>"+ptr.name);
+            System.out.println("the Employee Joptitle==>"+ptr.Joptitle);
+            System.out.println("the Employee Department==>"+ptr.Department);
+            System.out.println("the Employee Salery"+ptr.Salery);
+            System.out.println("--------------------------------------------------------------------");
+            ptr = ptr.next;
+        }
+    }
+ 
+ void SalesEmp(){
+     boolean emp=false;
+     NodeQ4 ptr=list;
+     String a="Sales";
+     while(ptr!=null){
+         
+      if(ptr.Department.equals(a)){
+      System.out.println("the Employee Number==>"+ptr.ID);
+            System.out.println("the Employee name==>"+ptr.name);
+            System.out.println("the Employee Joptitle==>"+ptr.Joptitle);
+            System.out.println("the Employee Department==>"+ptr.Department);
+            System.out.println("the Employee Salery==>"+ptr.Salery);
+            System.out.println("--------------------------------------------------------------------");
+            emp=true;
+     }   
+     ptr=ptr.next;    
+        }
+     if(emp==false)
+     System.out.println("There are no one in this Department ");
+       
+    }   
+  
+void SepEmp(){
+     boolean emp=false;
+     NodeQ4 ptr=list;
+      String b="Backend_Developer";
+     while(ptr!=null){
+        if(ptr.Joptitle.equals(b)|| ptr.Salery>2500){
+      System.out.println("the Employee Number==> "+ptr.ID);
+            System.out.println("the Employee name==>"+ptr.name);
+            System.out.println("the Employee Joptitle==>"+ptr.Joptitle);
+            System.out.println("the Employee Department== >"+ptr.Department);
+            System.out.println("the Employee Salery== >"+ptr.Salery);
+            System.out.println("--------------------------------------------------------------------");
+      emp=true;
+     }   
+      ptr=ptr.next;    
+        }
+     if(emp==false)
+     System.out.println("There are no one has joptitle as Backend Developer or has a salery over 2500 ");
+       
+    } 
+ 
+void BadEmp(){
+     boolean emp=false;
+     NodeQ4 ptr=list;
+     while(ptr!=null){
+      ptr.Salery+=500;
+      
+      ptr=ptr.next;
+     }   
+         
+       
+        ptr=list;
+     while(ptr!=null){
+      if(ptr.Salery<1700){
+      DeleteElement(ptr.ID);
+      emp=true;
+     }   
+      ptr=ptr.next;    
+        }
+        
+     if(emp==false)
+     System.out.println("This employee dose not exist ");
+     else 
+      System.out.println("the opeartion done Successfully!");
+       
+    }    
+   
+
+}
+
+import java.util.Scanner;
+
+public class MainQ4 {
+    public static void main(String[] args) {
+         Scanner sc = new Scanner(System.in);
+        Q4 list1 = new Q4();
+     
+        int choice; 
+        int number;
+        String name;
+        String  jop;
+        String  De;
+        int sal;
+      
+      
+        
+        list1.CreateList();
+        while(true){
+            
+            displayMenu();
+             choice=sc.nextInt();
+          switch(choice){
+                case 1:
+                    System.out.println("Enter ID: ");
+                     number=sc.nextInt();
+                    System.out.println("Enter the Name  = ");
+                   name=sc.next(); 
+                    System.out.println("Enter the Joptitle = "); 
+                    jop = sc.next();
+                  System.out.println("Enter the Department = "); 
+                    De =sc.next();
+                  System.out.println("Enter the Salary: ");
+                     sal=sc.nextInt();
+                    list1.InsertElement(number, name, jop, De, sal );
+                    break;
+                    case 2:
+                    if(list1.Emptylist()==true)
+                        System.out.println("The list is empty!");
+                    else
+                      list1.SalesEmp();
+                       break;
+        
+                    
+                case 3: 
+                    if(list1.Emptylist()==true)
+                        System.out.println("The list is empty");
+                    else{
+                       
+                        list1.SepEmp();}
+                        
+                    break;
+                        case 4: 
+                    if(list1.Emptylist()==true)
+                        System.out.println("The list is empty");
+                    else
+                        
+                        list1.BadEmp();
+                        
+                    break;
+                    
+                       case 5: 
+                    if(list1.Emptylist()==true)
+                        System.out.println("The list is empty");
+                    else
+                        list1.PrintList1();
+                        
+                    break;
+                    
+                    
+                case 6:
+                    System.out.println("Good Bye!");
+                    System.exit(0);
+                    
+                default: 
+                    System.out.println("Invalid choice. Try again!");
+        
+    }
+     }
+     
+                                                       }
+      public static void displayMenu(){
+     System.out.println();
+     System.out.println("1. Insert Element");
+     System.out.println("2. Sales Employees ");
+     System.out.println("3. employees salery over 2500 or Backend Developer  ");
+     System.out.println("4. employees salery under 1700 will get dismiss   ");
+     System.out.println("5. Print List");
+     System.out.println("6. Exi");
+     System.out.println("Your choice: "); }
+    }
